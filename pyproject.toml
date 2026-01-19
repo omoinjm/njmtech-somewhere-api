@@ -14,3 +14,6 @@ dependencies = [
   "haversine",
   "typer"
 ]
+
+[project.scripts]
+flight-optimizer = "app.cli:run"

@@ -5,12 +5,9 @@ from typing import List
 
 import httpx
 
-from app.application.services import FlightOptimizationService, FlightOptimizationError
-from app.core.config import settings
-from app.infrastructure.repositories.kiwi_flight_repository import KiwiFlightRepository
-
-# Create a Typer app
-cli = typer.Typer()
+from .application.services import FlightOptimizationService, FlightOptimizationError
+from .core.config import settings
+from .infrastructure.repositories.kiwi_flight_repository import KiwiFlightRepository
 
 def get_service() -> FlightOptimizationService:
     """Manually construct the service for the CLI."""
@@ -19,8 +16,7 @@ def get_service() -> FlightOptimizationService:
     return FlightOptimizationService(flight_repository=repo)
 
 
-@cli.command()
-def optimize(
+def main(
     from_city: Annotated[str, typer.Option("--from", help="The starting city.")],
     to_cities: Annotated[List[str], typer.Option("--to", help="A destination city. Can be used multiple times.")],
 ):
@@ -47,5 +43,9 @@ def optimize(
         raise typer.Exit(code=1)
 
 
+def run():
+    typer.run(main)
+
+
 if __name__ == "__main__":
-    cli()
+    run()
