@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.router import router as api_router
 
@@ -8,6 +10,8 @@ app = FastAPI(
     description="An API to find the best flight deals based on price per kilometer.",
     version="1.0.0",
 )
+
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 # CORS configuration
 origins = [
@@ -24,6 +28,10 @@ app.add_middleware(
 )
 
 app.include_router(api_router, prefix="/api")
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return FileResponse("app/static/favicon.ico")
 
 @app.get("/", tags=["Health"])
 def health_check():

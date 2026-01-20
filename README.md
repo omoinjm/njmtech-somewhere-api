@@ -80,7 +80,7 @@ curl -X 'POST' \
   'http://127.0.0.1:8000/api/flight/optimize' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
-  -d 
+  -d
 {
   "from_city": "London",
   "to_cities": [
@@ -109,12 +109,12 @@ curl -X 'POST' \
 
 The project also includes a command-line interface to perform the same optimization task directly from your terminal.
 
-The command uses the format `python cli.py --from <city> --to <city1> --to <city2> ...`.
+The command uses the format `python cli.py --from <city> --to "<city1>, <city2> ..."`.
 
 **Example CLI Command:**
 
 ```bash
-python cli.py --from "New York" --to "London" --to "Tokyo" --to "Sydney"
+python cli.py --from "New York" --to "London" --to "Tokyo, Sydney"
 ```
 
 **Example CLI Output:**
